@@ -1,0 +1,44 @@
+<%- include("partials/header.ejs") %>
+
+<% if(locals.listName){%>
+
+    <h1><%= listName %></h1>
+
+<% } else{%>
+    <h1>Todat</h1>
+    <%}%>
+
+
+
+    <% taskList.forEach(function(task){%>
+
+        <div class="listItem">
+
+            <form action="/delete" method="POST">
+
+            
+                <input type="checkbox" name="strikethrough" onChange="this.form.submit()" value="<%= task._id %>">
+                <input type="hidden" name="deletedListItem" value="<%= locals.listName %>">
+
+                <%= task.task %>
+
+            </form>
+
+        </div>
+
+        <% }) %>
+
+
+
+            <form class="listSubmit" action="/worklist" method="post" autocomplete="off">
+                <input type="text" name="List">
+                <button type="submit" name="listName" value="<%= locals.listName %>">submit</button>
+            </form>
+
+
+
+
+
+
+
+            <%- include("partials/footer.ejs") %>
